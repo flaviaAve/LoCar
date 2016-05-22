@@ -1,63 +1,124 @@
 package pucsp.locar;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.widget.Spinner;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
+
+import pucsp.locar.conexoes.ModelosRequisicao;
+import pucsp.locar.conexoes.MontadorasRequisicao;
+import pucsp.locar.objetos.Modelo;
+import pucsp.locar.objetos.ModeloAdapter;
+import pucsp.locar.objetos.Montadora;
+import pucsp.locar.objetos.MontadoraAdapter;
 
 public class Veiculos extends AppCompatActivity {
-
-    ArrayAdapter<String> veiculosAdapter;
-    ListView veiculos;
+    Spinner s_montadora;
+    Spinner s_modelo;
+    ArrayAdapter<String> adapter;
+    ArrayList<Montadora> montadoras;
+    ArrayList<Modelo> modelos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_veiculos);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        s_montadora = (Spinner) findViewById(R.id.s_montadoras);
+        s_modelo = (Spinner) findViewById(R.id.s_modelo);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonResponse = new JSONObject(response);
+                    boolean success = jsonResponse.getBoolean("success");
+
+                    if (success) {
+                        JSONArray montadorasJSON = jsonResponse.getJSONArray("montadora");
+                        montadoras = Montadora.fromJson(montadorasJSON);
+                        ArrayList<String> descricoes = new ArrayList<String>();
+                        for(Montadora montadora : montadoras)
+                        {
+                            descricoes.add(montadora.descricao);
+                        }
+                        adapter = new MontadoraAdapter(Veiculos.this, descricoes);
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        s_montadora.setAdapter(adapter);
+                    } else {
+                        adapter = null;
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        MontadorasRequisicao montadorasRequisicao = new MontadorasRequisicao(responseListener);
+        RequestQueue queue = Volley.newRequestQueue(Veiculos.this);
+        queue.add(montadorasRequisicao);
+
+        s_montadora.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+                s_modelo.setAdapter(null);
+                buscarModelosPorMontadora(montadoras.get(position).codMontadora);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+                s_modelo.setAdapter(null);
             }
         });
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
 
-        List<String> dadosVeiculos = new ArrayList<String>();
-        dadosVeiculos.add("Corsa:1998:foto1.png");
-        dadosVeiculos.add("KA:2010:foto2.png");
-        dadosVeiculos.add("EcoSport:2014:foto3.png");
-        dadosVeiculos.add("Corsa:2000:foto4.png");
-        dadosVeiculos.add("Corsa:1998:foto1.png");
-        dadosVeiculos.add("KA:2010:foto2.png");
-        dadosVeiculos.add("EcoSport:2014:foto3.png");
-        dadosVeiculos.add("Corsa:2000:foto4.png");
-        dadosVeiculos.add("Corsa:1998:foto1.png");
-        dadosVeiculos.add("KA:2010:foto2.png");
-        dadosVeiculos.add("EcoSport:2014:foto3.png");
-        dadosVeiculos.add("Corsa:2000:foto4.png");
+    private void buscarModelosPorMontadora(String montadora)
+    {
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonResponse = new JSONObject(response);
+                    boolean success = jsonResponse.getBoolean("success");
 
-        veiculosAdapter = new ArrayAdapter<String>(
-                this,
-                R.layout.list_item_veiculo,
-                R.id.liVeiculo,
-                dadosVeiculos
-        );
+                    if (success) {
+                        JSONArray modelosJSON = jsonResponse.getJSONArray("modelo");
+                        modelos = Modelo.fromJson(modelosJSON);
+                        ArrayList<String> descricoes = new ArrayList<String>();
+                        for(Modelo modelo : modelos)
+                        {
+                            descricoes.add(modelo.descricao);
+                        }
+                        adapter = new ModeloAdapter(Veiculos.this, descricoes);
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        s_modelo.setAdapter(adapter);
+                    } else {
+                        adapter = null;
+                    }
 
-        veiculos = (ListView) findViewById(R.id.lvVeiculos);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
 
-        veiculos.setAdapter(veiculosAdapter);
+        ModelosRequisicao modelosRequisicao = new ModelosRequisicao(montadora, responseListener);
+        RequestQueue queue = Volley.newRequestQueue(Veiculos.this);
+        queue.add(modelosRequisicao);
     }
 
 }

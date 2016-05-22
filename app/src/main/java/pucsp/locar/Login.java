@@ -2,53 +2,69 @@ package pucsp.locar;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.widget.EditText;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import pucsp.locar.conexoes.LoginRequisicao;
 
 public class Login extends AppCompatActivity {
+
+    EditText et_usuario;
+    EditText et_senha;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_login, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+        et_usuario = (EditText) findViewById(R.id.etUsuario);
+        et_senha = (EditText) findViewById(R.id.etSenha);
     }
 
     public void logar(View v)
     {
-        startActivity(new Intent(this, Principal.class));
+        final String usuario = et_usuario.getText().toString();
+        final String senha = et_senha.getText().toString();
+
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonResponse = new JSONObject(response);
+                    boolean success = jsonResponse.getBoolean("success");
+
+                    if (success) {
+                        String nome = jsonResponse.getString("nome");
+                        String id = jsonResponse.getString("id");
+
+                        SalvarSharedPreferences.setUserName(Login.this, nome, id, "local");
+                        Login.this.startActivity(new Intent(Login.this, Principal.class));
+
+                    } else {
+                        et_usuario.setError("Usuário inválido");
+                        et_senha.setError("Senha inválida");
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        LoginRequisicao loginRequisicao = new LoginRequisicao(usuario, senha, responseListener);
+        RequestQueue queue = Volley.newRequestQueue(Login.this);
+        queue.add(loginRequisicao);
     }
 
-    public void registrar(View v)
+    public void pagina_esqueci_senha(View v)
     {
-        startActivity(new Intent(this, RegistroUsuario.class));
+        //TODO: Página de reset de senha
     }
 }

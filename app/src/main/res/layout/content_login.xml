@@ -14,8 +14,10 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/locar_logo"
-        android:id="@+id/ivLogo" />
+        android:src="@drawable/sports_car_128"
+        android:id="@+id/ivLogo"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -46,16 +48,17 @@
         android:id="@+id/btEntrar"
         android:onClick="logar"
         android:layout_below="@+id/etSenha"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorPrimary"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceButton"
-        android:text="Registrar"
-        android:id="@+id/tvRegistrar"
-        android:onClick="registrar"
-        android:layout_alignTop="@+id/btEntrar"
-        android:layout_alignRight="@+id/etSenha"
-        android:layout_alignEnd="@+id/etSenha" />
+        android:text="Esqueci minha senha"
+        android:id="@+id/tvEsqueciSenha"
+        android:onClick="pagina_esqueci_senha"
+        android:layout_below="@+id/btEntrar"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"/>
 </RelativeLayout>
