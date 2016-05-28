@@ -7,15 +7,11 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Spinner;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -128,11 +124,11 @@ public class RegistroUsuario extends AppCompatActivity {
                             String usuario_id = jsonResponse.getString("id");
                             String usuario_nome = jsonResponse.getString("nome");
 
-                            SalvarSharedPreferences.setUserName(RegistroUsuario.this, usuario_nome, usuario_id, "local");
+                            RecursosSharedPreferences.setUserName(RegistroUsuario.this, usuario_nome, usuario_id, "local");
                             Intent i = new Intent(RegistroUsuario.this, Principal.class);
                             startActivity(i);
                             Bitmap imagem = ((BitmapDrawable)iv_foto_usuario.getDrawable()).getBitmap();
-                            new EnviarImagem(RegistroUsuario.this, iv_foto_usuario.getTag().toString(), imagem).execute();
+                            new EnviarImagem(RegistroUsuario.this, "usuarios_imagens/", iv_foto_usuario.getTag().toString(), imagem).execute();
                             finish();
                         }
                     } catch (JSONException e) {

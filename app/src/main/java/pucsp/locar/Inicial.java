@@ -1,16 +1,10 @@
 package pucsp.locar;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -19,7 +13,6 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
-import com.facebook.GraphRequest;
 import com.facebook.Profile;
 import com.facebook.ProfileTracker;
 import com.facebook.login.LoginResult;
@@ -53,9 +46,7 @@ public class Inicial extends AppCompatActivity {
                 if (newProfile != null) {
                     try {
                         Uri profilePicture = newProfile.getProfilePictureUri(100, 100);
-                        Bitmap imagem = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), profilePicture);
-
-                        new EnviarImagem(getApplicationContext(), newProfile.getId().toString(), imagem).execute();
+                        new EnviarImagem(getApplicationContext(), "usuarios_imagens/", newProfile.getId().toString(), profilePicture).execute();
                         String caminhoImagem = "usuarios_imagens/" + newProfile.getId().toString() + ".jpg";
                         String login = newProfile.getFirstName();
                         String nome = newProfile.getName();
@@ -71,8 +62,7 @@ public class Inicial extends AppCompatActivity {
                                         String usuario_id = jsonResponse.getString("id");
                                         String usuario_nome = jsonResponse.getString("nome");
 
-                                        SalvarSharedPreferences.setUserName(Inicial.this, usuario_nome, usuario_id, "facebook");
-                                        startActivity(i);
+                                        RecursosSharedPreferences.setUserName(Inicial.this, usuario_nome, usuario_id, "facebook");
                                         finish();
                                     }
                                 } catch (JSONException e) {
@@ -111,7 +101,7 @@ public class Inicial extends AppCompatActivity {
             }
         });
 
-        if(SalvarSharedPreferences.getUserName(Inicial.this).length() > 0)
+        if(RecursosSharedPreferences.getUserName(Inicial.this).length() > 0)
         {
             startActivity(i);
             finish();
@@ -129,6 +119,7 @@ public class Inicial extends AppCompatActivity {
     private FacebookCallback<LoginResult> callback = new FacebookCallback<LoginResult>() {
         @Override
         public void onSuccess(LoginResult loginResult) {
+            startActivity(i);
         }
 
         @Override

@@ -10,21 +10,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.toolbox.Volley;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.lang.reflect.Method;
 
-import pucsp.locar.conexoes.ListarVeiculosRequisicao;
-import pucsp.locar.objetos.Veiculo;
-import pucsp.locar.objetos.VeiculoAdapter;
 import pucsp.locar.pucsp.locar.assincrono.CarregarVeiculos;
 
 public class Principal extends AppCompatActivity {
@@ -59,7 +49,14 @@ public class Principal extends AppCompatActivity {
         if (id == R.id.menu_veiculo) {
             Intent i = new Intent(Principal.this, Veiculos.class);
             startActivity(i);
-            finish();
+            return true;
+        }
+
+        if (id == R.id.menu_cadastro)
+        {
+            Intent i = new Intent(Principal.this, MeuCadastro.class);
+            startActivity(i);
+            return true;
         }
 
         if (id == R.id.menu_logout) {
@@ -101,7 +98,7 @@ public class Principal extends AppCompatActivity {
 
     public void logout(View v)
     {
-        SalvarSharedPreferences.clearUserName(Principal.this);
+        RecursosSharedPreferences.clearUserName(Principal.this);
         LoginManager.getInstance().logOut();
         Intent i = new Intent(Principal.this, Inicial.class);
         startActivity(i);

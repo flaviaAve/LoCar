@@ -12,12 +12,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import pucsp.locar.SalvarSharedPreferences;
+import pucsp.locar.RecursosSharedPreferences;
 import pucsp.locar.conexoes.ListarMeusVeiculos;
-import pucsp.locar.conexoes.ListarVeiculosRequisicao;
 import pucsp.locar.objetos.MeuVeiculoAdapter;
 import pucsp.locar.objetos.Veiculo;
-import pucsp.locar.objetos.VeiculoAdapter;
 
 /**
  * Created by Flavia on 27/05/2016.
@@ -57,7 +55,7 @@ public class CarregarMeusVeiculos extends AsyncTask<Void, Void, Void> {
             }
         };
 
-        ListarMeusVeiculos veiculoRequisicao = new ListarMeusVeiculos(SalvarSharedPreferences.getUserID(context), responseListener);
+        ListarMeusVeiculos veiculoRequisicao = new ListarMeusVeiculos(RecursosSharedPreferences.getUserID(context), responseListener);
         RequestQueue queue = Volley.newRequestQueue(context);
         queue.add(veiculoRequisicao);
         return null;
