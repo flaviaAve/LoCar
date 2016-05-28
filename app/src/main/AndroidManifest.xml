@@ -73,7 +73,9 @@
                 android:value="pucsp.locar.Principal" />
         </activity>
         <activity android:name=".BuscarVeiculo" />
-        <activity android:name=".MeuCadastro"/>
+        <activity android:name=".MeuCadastro" />
+        <activity android:name=".VisualizarVeiculo" />
+        <activity android:name=".Avaliacoes"></activity>
     </application>
 
 </manifest>

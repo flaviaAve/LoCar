@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -39,10 +39,6 @@ public class MeuVeiculoAdapter extends ArrayAdapter<Veiculo>
             convertView = inflater.inflate(R.layout.list_item_meu_veiculo, parent, false);
             viewHolder.tv_veiculo = (TextView) convertView.findViewById(R.id.tvVeiculo);
             viewHolder.iv_veiculo = (ImageView) convertView.findViewById(R.id.ivVeiculo);
-
-            Glide.with(getContext()).load(veiculo.veiculoFoto)
-                    .into(viewHolder.iv_veiculo);
-
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -50,6 +46,8 @@ public class MeuVeiculoAdapter extends ArrayAdapter<Veiculo>
 
         String conteudo = veiculo.montadora + " - " + veiculo.modelo + " (R$ " + String.valueOf(veiculo.preco_minuto).replace(".", ",") + "/min)";
         viewHolder.tv_veiculo.setText(conteudo);
+        Picasso.with(getContext()).load(veiculo.veiculoFoto)
+                .into(viewHolder.iv_veiculo);
 
         return convertView;
     }

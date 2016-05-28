@@ -45,7 +45,7 @@ public class Login extends AppCompatActivity {
                         String nome = jsonResponse.getString("nome");
                         String id = jsonResponse.getString("id");
 
-                        SalvarSharedPreferences.setUserName(Login.this, nome, id, "local");
+                        RecursosSharedPreferences.setUserName(Login.this, nome, id, "local");
                         Intent i = new Intent(Login.this, Principal.class);
                         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(i);

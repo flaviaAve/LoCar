@@ -8,12 +8,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 import pucsp.locar.R;
-import pucsp.locar.pucsp.locar.assincrono.ObterImagem;
 
 /**
  * Created by Flavia on 21/05/2016.
@@ -40,10 +39,6 @@ public class VeiculoAdapter extends ArrayAdapter<Veiculo>
             convertView = inflater.inflate(R.layout.list_item_veiculo, parent, false);
             viewHolder.tv_veiculo = (TextView) convertView.findViewById(R.id.tvVeiculo);
             viewHolder.iv_veiculo = (ImageView) convertView.findViewById(R.id.ivVeiculo);
-
-            Glide.with(getContext()).load(veiculo.veiculoFoto)
-                    .into(viewHolder.iv_veiculo);
-
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -51,6 +46,8 @@ public class VeiculoAdapter extends ArrayAdapter<Veiculo>
 
         String conteudo = veiculo.montadora + " - " + veiculo.modelo + " (R$ " + String.valueOf(veiculo.preco_minuto).replace(".", ",") + "/min)";
         viewHolder.tv_veiculo.setText(conteudo);
+        Picasso.with(getContext()).load(veiculo.veiculoFoto)
+                .into(viewHolder.iv_veiculo);
 
         return convertView;
     }
