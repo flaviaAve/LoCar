@@ -3,28 +3,11 @@
     <string name="action_settings">Configurações</string>
     <string name="title_activity_registro_usuario">Registrar</string>
     <string name="title_activity_principal">LoCar</string>
-    <string-array name="orgao_emissor_array">
-        <item>SSP</item>
-        <item>PM</item>
-        <item>PC</item>
-        <item>CNT</item>
-        <item>DIC</item>
-        <item>CTPS</item>
-        <item>FGTS</item>
-        <item>IFP</item>
-        <item>IPF</item>
-        <item>IML</item>
-        <item>MTE</item>
-        <item>MMA</item>
-        <item>MAE</item>
-        <item>MEX</item>
-        <item>POF</item>
-        <item>PO</item>
-        <item>SES</item>
-        <item>SJS</item>
-        <item>SJTS</item>
-        <item>Outro</item>
-    </string-array>
     <string name="title_activity_veiculos">Veículos</string>
+    <string name="title_activity_login_facebook">Login</string>
+    <string name="facebook_app_id">582767458549267</string>
+    <string name="title_activity_cadastro_veiculo">Cadastro Veículo</string>
+    <string name="drawer_open">Abrir</string>
+    <string name="drawer_close">Fechar</string>
 
 </resources>

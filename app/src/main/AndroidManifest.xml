@@ -3,6 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="pucsp.locar">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,16 +15,32 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:label">
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
         <activity
-            android:name=".Login"
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <provider
+            android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.facebook.app.FacebookContentProvider582767458549267"
+            android:exported="true" />
+
+        <activity android:name=".Inicial">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Login"
+            android:label="@string/title_activity_login_facebook"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".RegistroUsuario"
             android:label="@string/title_activity_registro_usuario"
@@ -42,6 +63,17 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="pucsp.locar.Principal" />
         </activity>
+        <activity
+            android:name=".CadastroVeiculo"
+            android:label="@string/title_activity_cadastro_veiculo"
+            android:parentActivityName=".Principal"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="pucsp.locar.Principal" />
+        </activity>
+        <activity android:name=".BuscarVeiculo" />
+        <activity android:name=".MeuCadastro"/>
     </application>
 
 </manifest>
