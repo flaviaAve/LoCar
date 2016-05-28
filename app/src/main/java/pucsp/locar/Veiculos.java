@@ -1,124 +1,39 @@
 package pucsp.locar;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
-
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.toolbox.Volley;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-
-import pucsp.locar.conexoes.ModelosRequisicao;
-import pucsp.locar.conexoes.MontadorasRequisicao;
-import pucsp.locar.objetos.Modelo;
-import pucsp.locar.objetos.ModeloAdapter;
-import pucsp.locar.objetos.Montadora;
-import pucsp.locar.objetos.MontadoraAdapter;
+import android.widget.ListView;
+import pucsp.locar.pucsp.locar.assincrono.CarregarMeusVeiculos;
 
 public class Veiculos extends AppCompatActivity {
-    Spinner s_montadora;
-    Spinner s_modelo;
-    ArrayAdapter<String> adapter;
-    ArrayList<Montadora> montadoras;
-    ArrayList<Modelo> modelos;
+    ListView lv_meus_veiculos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_veiculos);
-        s_montadora = (Spinner) findViewById(R.id.s_montadoras);
-        s_modelo = (Spinner) findViewById(R.id.s_modelo);
 
-        Response.Listener<String> responseListener = new Response.Listener<String>() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        assert fab != null;
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject jsonResponse = new JSONObject(response);
-                    boolean success = jsonResponse.getBoolean("success");
-
-                    if (success) {
-                        JSONArray montadorasJSON = jsonResponse.getJSONArray("montadora");
-                        montadoras = Montadora.fromJson(montadorasJSON);
-                        ArrayList<String> descricoes = new ArrayList<String>();
-                        for(Montadora montadora : montadoras)
-                        {
-                            descricoes.add(montadora.descricao);
-                        }
-                        adapter = new MontadoraAdapter(Veiculos.this, descricoes);
-                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        s_montadora.setAdapter(adapter);
-                    } else {
-                        adapter = null;
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-
-        MontadorasRequisicao montadorasRequisicao = new MontadorasRequisicao(responseListener);
-        RequestQueue queue = Volley.newRequestQueue(Veiculos.this);
-        queue.add(montadorasRequisicao);
-
-        s_montadora.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view,
-                                       int position, long id) {
-                s_modelo.setAdapter(null);
-                buscarModelosPorMontadora(montadoras.get(position).codMontadora);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
-                s_modelo.setAdapter(null);
+            public void onClick(View view) {
+                Intent i = new Intent(Veiculos.this, CadastroVeiculo.class);
+                startActivity(i);
             }
         });
-    }
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-    private void buscarModelosPorMontadora(String montadora)
-    {
-        Response.Listener<String> responseListener = new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject jsonResponse = new JSONObject(response);
-                    boolean success = jsonResponse.getBoolean("success");
+        lv_meus_veiculos = (ListView) findViewById(R.id.lv_meus_veiculos);
 
-                    if (success) {
-                        JSONArray modelosJSON = jsonResponse.getJSONArray("modelo");
-                        modelos = Modelo.fromJson(modelosJSON);
-                        ArrayList<String> descricoes = new ArrayList<String>();
-                        for(Modelo modelo : modelos)
-                        {
-                            descricoes.add(modelo.descricao);
-                        }
-                        adapter = new ModeloAdapter(Veiculos.this, descricoes);
-                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        s_modelo.setAdapter(adapter);
-                    } else {
-                        adapter = null;
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-
-        ModelosRequisicao modelosRequisicao = new ModelosRequisicao(montadora, responseListener);
-        RequestQueue queue = Volley.newRequestQueue(Veiculos.this);
-        queue.add(modelosRequisicao);
+        new CarregarMeusVeiculos(this, lv_meus_veiculos).execute();
     }
 
 }

@@ -13,20 +13,19 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 
 import pucsp.locar.R;
-import pucsp.locar.pucsp.locar.assincrono.ObterImagem;
 
 /**
- * Created by Flavia on 21/05/2016.
+ * Created by Flavia on 27/05/2016.
  */
-public class VeiculoAdapter extends ArrayAdapter<Veiculo>
+public class MeuVeiculoAdapter extends ArrayAdapter<Veiculo>
 {
     private static class ViewHolder {
         TextView tv_veiculo;
         ImageView iv_veiculo;
     }
 
-    public VeiculoAdapter(Context context, ArrayList<Veiculo> veiculos) {
-        super(context, R.layout.list_item_veiculo, veiculos);
+    public MeuVeiculoAdapter(Context context, ArrayList<Veiculo> veiculos) {
+        super(context, R.layout.list_item_meu_veiculo, veiculos);
     }
 
     @Override
@@ -37,7 +36,7 @@ public class VeiculoAdapter extends ArrayAdapter<Veiculo>
         if (convertView == null) {
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.list_item_veiculo, parent, false);
+            convertView = inflater.inflate(R.layout.list_item_meu_veiculo, parent, false);
             viewHolder.tv_veiculo = (TextView) convertView.findViewById(R.id.tvVeiculo);
             viewHolder.iv_veiculo = (ImageView) convertView.findViewById(R.id.ivVeiculo);
 
@@ -55,5 +54,3 @@ public class VeiculoAdapter extends ArrayAdapter<Veiculo>
         return convertView;
     }
 }
-
-

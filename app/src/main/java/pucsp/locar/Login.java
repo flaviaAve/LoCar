@@ -39,17 +39,25 @@ public class Login extends AppCompatActivity {
                 try {
                     JSONObject jsonResponse = new JSONObject(response);
                     boolean success = jsonResponse.getBoolean("success");
+                    String motivo = jsonResponse.getString("motivo");
 
                     if (success) {
                         String nome = jsonResponse.getString("nome");
                         String id = jsonResponse.getString("id");
 
                         SalvarSharedPreferences.setUserName(Login.this, nome, id, "local");
-                        Login.this.startActivity(new Intent(Login.this, Principal.class));
+                        Intent i = new Intent(Login.this, Principal.class);
+                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(i);
+                        finish();
 
                     } else {
-                        et_usuario.setError("Usuário inválido");
-                        et_senha.setError("Senha inválida");
+                        if (motivo.equals("usuario")) {
+                            et_usuario.setError("Usuário inválido");
+                        }
+                        else {
+                            et_senha.setError("Senha inválida");
+                        }
                     }
 
                 } catch (JSONException e) {

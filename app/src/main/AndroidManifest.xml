@@ -4,6 +4,9 @@
     package="pucsp.locar">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -37,8 +40,7 @@
         <activity
             android:name=".Login"
             android:label="@string/title_activity_login_facebook"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".RegistroUsuario"
             android:label="@string/title_activity_registro_usuario"
@@ -62,9 +64,16 @@
                 android:value="pucsp.locar.Principal" />
         </activity>
         <activity
-            android:name=".LoginFacebook"
-            android:label="@string/title_activity_login_facebook"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:name=".CadastroVeiculo"
+            android:label="@string/title_activity_cadastro_veiculo"
+            android:parentActivityName=".Principal"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="pucsp.locar.Principal" />
+        </activity>
+        <activity android:name=".BuscarVeiculo" />
+        <activity android:name=".MeuCadastro"/>
     </application>
 
 </manifest>

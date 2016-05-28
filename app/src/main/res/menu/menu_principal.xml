@@ -21,10 +21,10 @@
         android:icon="@drawable/ic_cadastro"
         app:showAsAction="never" />
     <item
-        android:id="@+id/menu_historico"
+        android:id="@+id/menu_avaliacao"
         android:orderInCategory="4"
-        android:title="Histórico"
-        android:icon="@drawable/ic_historico"
+        android:title="Avaliações"
+        android:icon="@drawable/ic_rank"
         app:showAsAction="never" />
     <item
         android:id="@+id/menu_logout"

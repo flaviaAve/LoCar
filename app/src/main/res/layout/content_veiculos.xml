@@ -13,61 +13,10 @@
     tools:context="pucsp.locar.Veiculos"
     tools:showIn="@layout/activity_veiculos">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:id="@+id/iv_foto_veiculo"
-        android:src="@drawable/ic_fotos"
-        android:contentDescription="Adicionar Foto"/>
 
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:id="@+id/s_montadoras" />
-
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:id="@+id/s_modelo" />
-
-    <EditText
+    <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="number"
-        android:id="@+id/et_renavam"
-        android:hint="Renavam"/>
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/et_chassi"
-        android:hint="Chassi"/>
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/et_qtd_portas"
-        android:hint="Quantidade de Portas"/>
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/et_capacidade_tanque"
-        android:hint="Capacidade do Tanque (L)"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Salvar"
-        android:id="@+id/bt_salvar"
-        android:layout_gravity="right"
-        android:background="@color/colorPrimary"/>
-
-
+        android:id="@+id/lv_meus_veiculos"
+        android:layout_gravity="center_horizontal" />
 </LinearLayout>

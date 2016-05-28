@@ -23,14 +23,18 @@ import pucsp.locar.R;
  * Created by Flavia on 21/05/2016.
  */
 public class Veiculo {
+    public int id_veiculo;
     public String modelo;
-    public String usuarioFoto;
+    public String montadora;
+    public double preco_minuto;
     public String veiculoFoto;
 
     public Veiculo(JSONObject object){
         try {
+            this.id_veiculo = object.getInt("codigo");
             this.modelo = object.getString("modelo");
-            this.usuarioFoto = object.getString("usuario_imagem");
+            this.montadora = object.getString("montadora");
+            this.preco_minuto = object.getDouble("precoMinuto");
             this.veiculoFoto = object.getString("veiculo_imagem");
         } catch (JSONException e) {
             e.printStackTrace();

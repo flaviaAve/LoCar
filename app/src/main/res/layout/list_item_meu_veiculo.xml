@@ -17,13 +17,24 @@
         android:id="@+id/tvVeiculo"
         android:text=""
         android:textSize="20sp"
-        android:textAlignment="center"
-        android:elegantTextHeight="true"
         android:textColor="@color/white"
+        android:background="@color/colorPrimary"
+        android:layout_alignTop="@+id/bt_excluir"
+        android:layout_toStartOf="@+id/bt_excluir"
+        android:layout_alignBottom="@+id/bt_excluir"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <ImageButton
+        android:layout_width="44dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/bt_excluir"
+        android:src="@drawable/ic_excluir"
+        android:layout_gravity="right"
+        android:layout_below="@+id/ivVeiculo"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:background="@color/colorPrimary"
-        android:layout_below="@+id/ivVeiculo"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:background="@color/white"/>
+
+
 </RelativeLayout>
