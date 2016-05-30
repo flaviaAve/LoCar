@@ -8,7 +8,8 @@
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:id="@+id/ivVeiculo"
-        android:src="@drawable/sports_car_128"/>
+        android:src="@drawable/sports_car_128"
+        android:onClick="exibirVeiculo"/>
 
 
     <TextView
@@ -25,5 +26,6 @@
         android:background="@color/colorPrimary"
         android:layout_below="@+id/ivVeiculo"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:onClick="exibirVeiculo"/>
 </RelativeLayout>

@@ -27,8 +27,14 @@
         android:icon="@drawable/ic_rank"
         app:showAsAction="never" />
     <item
-        android:id="@+id/menu_logout"
+        android:id="@+id/menu_reserva"
         android:orderInCategory="5"
+        android:title="Reservas"
+        android:icon="@drawable/ic_reserva"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_logout"
+        android:orderInCategory="6"
         android:title="Sair"
         android:icon="@drawable/ic_sair"
         app:showAsAction="never" />

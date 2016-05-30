@@ -1,10 +1,12 @@
 package pucsp.locar;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.android.volley.RequestQueue;
@@ -27,9 +29,13 @@ import pucsp.locar.objetos.MontadoraAdapter;
 public class BuscarVeiculo extends AppCompatActivity {
     Spinner s_montadora;
     Spinner s_modelo;
+    EditText et_preco;
     ArrayAdapter<String> adapter;
     ArrayList<Montadora> montadoras;
     ArrayList<Modelo> modelos;
+    String montadora;
+    String modelo;
+    String preco;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +44,7 @@ public class BuscarVeiculo extends AppCompatActivity {
 
         s_montadora = (Spinner) findViewById(R.id.s_montadoras);
         s_modelo = (Spinner) findViewById(R.id.s_modelo);
+        et_preco = (EditText) findViewById(R.id.et_preco_minuto);
 
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
@@ -50,6 +57,7 @@ public class BuscarVeiculo extends AppCompatActivity {
                         JSONArray montadorasJSON = jsonResponse.getJSONArray("montadora");
                         montadoras = Montadora.fromJson(montadorasJSON);
                         ArrayList<String> descricoes = new ArrayList<String>();
+                        descricoes.add("Qualquer");
                         for(Montadora montadora : montadoras)
                         {
                             descricoes.add(montadora.descricao);
@@ -77,12 +85,39 @@ public class BuscarVeiculo extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
                 s_modelo.setAdapter(null);
-                buscarModelosPorMontadora(montadoras.get(position).codMontadora);
+                if (position > 0) {
+                    buscarModelosPorMontadora(montadoras.get(position - 1).codMontadora);
+                    montadora = montadoras.get(position - 1).codMontadora;
+                }
+                else
+                {
+                    montadora = null;
+                }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
                 s_modelo.setAdapter(null);
+                montadora = null;
+            }
+        });
+
+        s_modelo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+                if (position > 0) {
+                    modelo = modelos.get(position - 1).codModelo;
+                }
+                else
+                {
+                    modelo = null;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+                modelo = null;
             }
         });
     }
@@ -100,6 +135,7 @@ public class BuscarVeiculo extends AppCompatActivity {
                         JSONArray modelosJSON = jsonResponse.getJSONArray("modelo");
                         modelos = Modelo.fromJson(modelosJSON);
                         ArrayList<String> descricoes = new ArrayList<String>();
+                        descricoes.add("Qualquer");
                         for(Modelo modelo : modelos)
                         {
                             descricoes.add(modelo.descricao);
@@ -120,5 +156,20 @@ public class BuscarVeiculo extends AppCompatActivity {
         ModelosRequisicao modelosRequisicao = new ModelosRequisicao(montadora, responseListener);
         RequestQueue queue = Volley.newRequestQueue(BuscarVeiculo.this);
         queue.add(modelosRequisicao);
+    }
+
+    public void buscar(View v)
+    {
+        preco = et_preco.getText().toString();
+        Intent intent = new Intent(BuscarVeiculo.this, Principal.class);
+
+        Bundle bundle = new Bundle();
+        bundle.putString("modelo", modelo);
+        bundle.putString("montadora", montadora);
+        bundle.putString("preco", (preco.isEmpty() ? null : preco));
+
+        intent.putExtras(bundle);
+        startActivity(intent);
+        finish();
     }
 }

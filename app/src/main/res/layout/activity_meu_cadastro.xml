@@ -10,6 +10,18 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="pucsp.locar.MeuCadastro">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/layout_carregando">
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/pb_loading"
+            style="?android:attr/progressBarStyle"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
+
     <ImageView
         android:layout_width="150dp"
         android:layout_height="150dp"
@@ -62,9 +74,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Salvar"
-        android:id="@+id/bt_salvar_usuario"
-        android:onClick="salvar"
-        android:layout_gravity="right"
-        android:background="@color/colorPrimary"/>
+        android:id="@+id/bt_alterar_usuario"
+        android:onClick="alterar"
+        android:background="@color/colorPrimary"
+        android:layout_gravity="right" />
 
 </LinearLayout>

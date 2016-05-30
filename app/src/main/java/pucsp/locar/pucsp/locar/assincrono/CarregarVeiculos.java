@@ -4,7 +4,9 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
+import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -15,6 +17,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import pucsp.locar.CadastroVeiculo;
+import pucsp.locar.R;
 import pucsp.locar.conexoes.ListarVeiculosRequisicao;
 import pucsp.locar.objetos.Veiculo;
 import pucsp.locar.objetos.VeiculoAdapter;
@@ -25,12 +28,22 @@ import pucsp.locar.objetos.VeiculoAdapter;
 public class CarregarVeiculos extends AsyncTask<Void, Void, Void> {
     private VeiculoAdapter adapter;
     private ListView lista;
+    private TextView texto;
     private Context context;
+    private String montadora;
+    private String modelo;
+    private String preco;
+    private String usuarioID;
 
-    public CarregarVeiculos(Context context, ListView lista)
+    public CarregarVeiculos(Context context, String usuarioID, String montadora, String modelo, String preco, ListView lista, TextView texto)
     {
         this.context = context;
         this.lista = lista;
+        this.montadora = montadora;
+        this.modelo = modelo;
+        this.preco = preco;
+        this.usuarioID = usuarioID;
+        this.texto = texto;
     }
 
     @Override
@@ -47,8 +60,11 @@ public class CarregarVeiculos extends AsyncTask<Void, Void, Void> {
                         JSONArray veiculosJSON = jsonResponse.getJSONArray("veiculo");
                         adapter = new VeiculoAdapter(context, Veiculo.fromJson(veiculosJSON));
                         lista.setAdapter(adapter);
+                        lista.setVisibility(View.VISIBLE);
+                        texto.setVisibility(View.INVISIBLE);
                     } else {
                         adapter = null;
+                        texto.setVisibility(View.VISIBLE);
                     }
 
                 } catch (JSONException e) {
@@ -57,7 +73,7 @@ public class CarregarVeiculos extends AsyncTask<Void, Void, Void> {
             }
         };
 
-        ListarVeiculosRequisicao veiculoRequisicao = new ListarVeiculosRequisicao(responseListener);
+        ListarVeiculosRequisicao veiculoRequisicao = new ListarVeiculosRequisicao(usuarioID, montadora, modelo, preco, responseListener);
         RequestQueue queue = Volley.newRequestQueue(context);
         queue.add(veiculoRequisicao);
         return null;

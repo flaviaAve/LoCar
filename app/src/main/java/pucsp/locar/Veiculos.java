@@ -36,4 +36,22 @@ public class Veiculos extends AppCompatActivity {
         new CarregarMeusVeiculos(this, lv_meus_veiculos).execute();
     }
 
+    public void exibirVeiculo(View v)
+    {
+        Intent i = new Intent(Veiculos.this, MeuVeiculo.class);
+
+        Bundle bundle = new Bundle();
+        bundle.putString("veiculoID", v.getTag().toString());
+
+        i.putExtras(bundle);
+        startActivity(i);
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        Intent i = new Intent(Veiculos.this, Principal.class);
+        startActivity(i);
+    }
+
 }

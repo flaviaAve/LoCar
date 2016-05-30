@@ -7,36 +7,34 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 /**
- * Created by Flavia on 28/05/2016.
+ * Created by Flavia on 29/05/2016.
  */
-public class VeiculoReserva {
+public class VeiculoCadastro {
     public int id_veiculo;
-    public String modelo;
-    public String montadora;
+    public String modeloID;
+    public String montadoraID;
     public String preco;
-    public String proprietario;
-    public String avaliacao;
+    public String placa;
     public String imagem_veiculo;
 
-    public VeiculoReserva(JSONObject object){
+    public VeiculoCadastro(JSONObject object){
         try {
             this.id_veiculo = object.getInt("codigo");
-            this.modelo = object.getString("modelo");
-            this.montadora = object.getString("montadora");
+            this.modeloID = object.getString("modelo");
+            this.montadoraID = object.getString("montadora");
             this.preco = object.getString("preco");
+            this.placa = object.getString("placa");
             this.imagem_veiculo = object.getString("imagem_veiculo");
-            this.proprietario = object.getString("proprietario");
-            this.avaliacao = object.getString("pontuacao");
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    public static ArrayList<VeiculoReserva> fromJson(JSONArray jsonObjects) {
-        ArrayList<VeiculoReserva> veiculos = new ArrayList<VeiculoReserva>();
+    public static ArrayList<VeiculoCadastro> fromJson(JSONArray jsonObjects) {
+        ArrayList<VeiculoCadastro> veiculos = new ArrayList<VeiculoCadastro>();
         for (int i = 0; i < jsonObjects.length(); i++) {
             try {
-                veiculos.add(new VeiculoReserva(jsonObjects.getJSONObject(i)));
+                veiculos.add(new VeiculoCadastro(jsonObjects.getJSONObject(i)));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
