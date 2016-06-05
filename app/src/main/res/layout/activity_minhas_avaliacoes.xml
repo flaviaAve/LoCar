@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="pucsp.locar.Avaliacoes">
+    tools:context="pucsp.locar.MinhasAvaliacoes">
 
     <TextView
         android:layout_width="wrap_content"
@@ -20,29 +20,9 @@
 
     <ListView
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:id="@+id/lv_avaliacoes_pendentes"
-        android:layout_above="@+id/bt_minhas_avaliacoes" />
-
-    <Button
-        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="Minhas Avaliações"
-        android:background="@color/colorPrimary"
-        android:id="@+id/bt_minhas_avaliacoes"
-        android:layout_alignParentBottom="true"
+        android:id="@+id/lv_minhas_avaliacoes"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:onClick="abrirMinhasAvaliacoes"/>
-
-    <Button
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:text="Realizadas"
-        android:background="@color/colorPrimary"
-        android:id="@+id/bt_avaliacoes_realizadas"
-        android:layout_below="@+id/lv_avaliacoes_pendentes"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:onClick="abrirAvaliacoesRealizadas"/>
+        android:layout_alignParentTop="true" />
 </RelativeLayout>

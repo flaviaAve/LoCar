@@ -10,29 +10,19 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Fiat - Palio do Luis"
-        android:id="@+id/tv_locacao"
-        android:layout_below="@+id/tv_avaliacao"
-        android:layout_toLeftOf="@+id/bt_avaliar"
-        android:layout_toRightOf="@+id/iv_estrela"
-        android:layout_toEndOf="@+id/iv_estrela" />
+        android:id="@+id/tv_veiculo_locacao"
+        android:layout_below="@+id/tv_data_locacao"
+        android:layout_toLeftOf="@+id/bt_avaliar" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Pontuação"
+        android:text="02/06/2016 - 04/06/2016"
         android:textColor="@color/colorPrimary"
-        android:id="@+id/tv_avaliacao"
+        android:id="@+id/tv_data_locacao"
         android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/bt_avaliar"
-        android:layout_toRightOf="@+id/iv_estrela"
-        android:layout_toEndOf="@+id/iv_estrela" />
-
-    <ImageView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:src="@mipmap/ic_estrela0"
-        android:id="@+id/iv_estrela" />
+        android:layout_toLeftOf="@+id/bt_avaliar" />
 
     <ImageButton
         android:layout_width="60dp"
@@ -41,5 +31,6 @@
         android:src="@drawable/ic_rank"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:onClick="abrirQuestionario"/>
 </RelativeLayout>

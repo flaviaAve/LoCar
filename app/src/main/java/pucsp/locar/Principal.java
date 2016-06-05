@@ -81,6 +81,13 @@ public class Principal extends AppCompatActivity {
             return true;
         }
 
+        if (id == R.id.menu_avaliacao)
+        {
+            Intent i = new Intent(Principal.this, Avaliacoes.class);
+            startActivity(i);
+            return true;
+        }
+
         if (id == R.id.menu_logout) {
             logout(item.getActionView());
             finish();

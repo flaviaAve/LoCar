@@ -30,6 +30,7 @@ import pucsp.locar.conexoes.AlterarUsuarioRequisicao;
 import pucsp.locar.conexoes.BuscarUsuarioRequisicao;
 import pucsp.locar.conexoes.MontadorasRequisicao;
 import pucsp.locar.conexoes.SalvarUsuarioRequisicao;
+import pucsp.locar.objetos.Criptografia;
 import pucsp.locar.objetos.Montadora;
 import pucsp.locar.objetos.MontadoraAdapter;
 import pucsp.locar.objetos.Usuario;
@@ -113,7 +114,8 @@ public class MeuCadastro extends AppCompatActivity {
         et_email.setText(usuario.email);
         String data = usuario.dt_nascimento.substring(8, 10) + "/" + usuario.dt_nascimento.substring(5, 7) + "/" + usuario.dt_nascimento.substring(0, 4);
         et_nascimento.setText(data);
-        et_senha.setText(usuario.senha);
+        et_senha.setText("--------");
+        et_senha.setTag(usuario.senha);
         Picasso.with(MeuCadastro.this).load(usuario.imagem_perfil)
                 .into(iv_usuario);
         String nome = usuario.imagem_perfil.substring(usuario.imagem_perfil.lastIndexOf("/"));
@@ -164,6 +166,14 @@ public class MeuCadastro extends AppCompatActivity {
         {
             erro = true;
             et_senha.setError("Senha é obrigatória!");
+        }
+        else if (senha_u.equals("--------"))
+        {
+            senha_u = et_senha.getTag().toString();
+        }
+        else
+        {
+            senha_u = Criptografia.gerarHash(senha_u);
         }
 
         final String caminhoImagem = "usuarios_imagens/" + iv_usuario.getTag().toString() + ".jpg";
