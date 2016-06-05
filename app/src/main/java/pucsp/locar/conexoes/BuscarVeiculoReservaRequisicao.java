@@ -16,7 +16,7 @@ public class BuscarVeiculoReservaRequisicao extends StringRequest {
     public BuscarVeiculoReservaRequisicao(String veiculoID, Response.Listener<String> listener) {
         super(Method.POST, VEICULO_REQUEST_URL, listener, null);
         params = new HashMap<>();
-        params.put("veiculoID", veiculoID);
+        params.put("veiculo", veiculoID);
     }
 
     @Override

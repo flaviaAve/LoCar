@@ -75,7 +75,13 @@
         <activity android:name=".BuscarVeiculo" />
         <activity android:name=".MeuCadastro" />
         <activity android:name=".VisualizarVeiculo" />
-        <activity android:name=".Avaliacoes"></activity>
+        <activity android:name=".Avaliacoes" />
+        <activity android:name=".Reservas" />
+        <activity android:name=".VisualizarReserva" />
+        <activity android:name=".MeuVeiculo" />
+        <activity android:name=".MinhasAvaliacoes" />
+        <activity android:name=".AvaliacoesRealizadas" />
+        <activity android:name=".Questionario"></activity>
     </application>
 
 </manifest>

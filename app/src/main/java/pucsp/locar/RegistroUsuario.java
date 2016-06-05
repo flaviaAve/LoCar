@@ -22,6 +22,7 @@ import org.json.JSONObject;
 
 import br.com.jansenfelipe.androidmask.MaskEditTextChangedListener;
 import pucsp.locar.conexoes.SalvarUsuarioRequisicao;
+import pucsp.locar.objetos.Criptografia;
 import pucsp.locar.pucsp.locar.assincrono.EnviarImagem;
 
 public class RegistroUsuario extends AppCompatActivity {
@@ -99,11 +100,19 @@ public class RegistroUsuario extends AppCompatActivity {
             erro = true;
             senha.setError("Senha é obrigatória!");
         }
+        else
+        {
+            senha_u = Criptografia.gerarHash(senha_u);
+        }
         String confirma_senha_u = confirma_senha.getText().toString();
         if (confirma_senha_u.isEmpty())
         {
             erro = true;
             confirma_senha.setError("Confirmação de Senha é obrigatória!");
+        }
+        else
+        {
+            confirma_senha_u = Criptografia.gerarHash(confirma_senha_u);
         }
         if (!senha_u.equals(confirma_senha_u))
         {

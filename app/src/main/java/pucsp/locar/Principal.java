@@ -9,6 +9,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
@@ -21,7 +22,7 @@ public class Principal extends AppCompatActivity {
 
     private ListView lista;
     private Toolbar toolbar;
-
+    private TextView sem_registro;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +34,21 @@ public class Principal extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         lista = (ListView) findViewById(R.id.lvVeiculos);
+        sem_registro = (TextView) findViewById(R.id.tv_sem_registro);
 
-        new CarregarVeiculos(this, lista).execute();
+        Intent intent = getIntent();
+        String montadora = null;
+        String modelo = null;
+        String preco = null;
+
+        Bundle bundle = intent.getExtras();
+        if (bundle != null) {
+            montadora = bundle.getString("montadora");
+            modelo = bundle.getString("modelo");
+            preco = bundle.getString("preco");
+        }
+
+        new CarregarVeiculos(this, RecursosSharedPreferences.getUserID(this), montadora, modelo, preco, lista, sem_registro).execute();
     }
 
     @Override
@@ -43,6 +57,8 @@ public class Principal extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.menu_buscar) {
+            Intent i = new Intent(Principal.this, BuscarVeiculo.class);
+            startActivity(i);
             return true;
         }
 
@@ -52,9 +68,22 @@ public class Principal extends AppCompatActivity {
             return true;
         }
 
+        if (id == R.id.menu_reserva) {
+            Intent i = new Intent(Principal.this, Reservas.class);
+            startActivity(i);
+            return true;
+        }
+
         if (id == R.id.menu_cadastro)
         {
             Intent i = new Intent(Principal.this, MeuCadastro.class);
+            startActivity(i);
+            return true;
+        }
+
+        if (id == R.id.menu_avaliacao)
+        {
+            Intent i = new Intent(Principal.this, Avaliacoes.class);
             startActivity(i);
             return true;
         }
@@ -103,5 +132,16 @@ public class Principal extends AppCompatActivity {
         Intent i = new Intent(Principal.this, Inicial.class);
         startActivity(i);
         finish();
+    }
+
+    public void exibirVeiculo(View v)
+    {
+        Intent i = new Intent(Principal.this, VisualizarVeiculo.class);
+
+        Bundle bundle = new Bundle();
+        bundle.putString("veiculoID", v.getTag().toString());
+
+        i.putExtras(bundle);
+        startActivity(i);
     }
 }

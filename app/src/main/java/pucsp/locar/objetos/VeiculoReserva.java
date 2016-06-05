@@ -24,9 +24,9 @@ public class VeiculoReserva {
             this.modelo = object.getString("modelo");
             this.montadora = object.getString("montadora");
             this.preco = object.getString("preco");
-            this.imagem_veiculo = object.getString("veiculo_imagem");
+            this.imagem_veiculo = object.getString("imagem_veiculo");
             this.proprietario = object.getString("proprietario");
-            this.avaliacao = object.getString("avaliacao");
+            this.avaliacao = object.getString("pontuacao");
         } catch (JSONException e) {
             e.printStackTrace();
         }

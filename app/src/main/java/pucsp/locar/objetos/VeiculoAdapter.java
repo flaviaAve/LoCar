@@ -46,8 +46,10 @@ public class VeiculoAdapter extends ArrayAdapter<Veiculo>
 
         String conteudo = veiculo.montadora + " - " + veiculo.modelo + " (R$ " + String.valueOf(veiculo.preco_minuto).replace(".", ",") + "/min)";
         viewHolder.tv_veiculo.setText(conteudo);
+        viewHolder.tv_veiculo.setTag(veiculo.id_veiculo);
         Picasso.with(getContext()).load(veiculo.veiculoFoto)
                 .into(viewHolder.iv_veiculo);
+        viewHolder.iv_veiculo.setTag(veiculo.id_veiculo);
 
         return convertView;
     }

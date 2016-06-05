@@ -14,6 +14,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import pucsp.locar.conexoes.LoginRequisicao;
+import pucsp.locar.objetos.Criptografia;
 
 public class Login extends AppCompatActivity {
 
@@ -26,12 +27,14 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         et_usuario = (EditText) findViewById(R.id.etUsuario);
         et_senha = (EditText) findViewById(R.id.etSenha);
+
+
     }
 
     public void logar(View v)
     {
         final String usuario = et_usuario.getText().toString();
-        final String senha = et_senha.getText().toString();
+        final String senha = Criptografia.gerarHash(et_senha.getText().toString());
 
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override

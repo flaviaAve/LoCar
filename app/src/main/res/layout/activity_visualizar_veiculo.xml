@@ -10,6 +10,18 @@
     android:orientation="vertical"
     tools:context="pucsp.locar.VisualizarVeiculo">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/layout_carregando">
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/pb_loading"
+            style="?android:attr/progressBarStyle"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="150dp"
@@ -45,12 +57,30 @@
         android:text="Avaliação: 4,2"
         android:id="@+id/tv_avaliacao_proprietario" />
 
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="date"
+        android:ems="10"
+        android:id="@+id/et_data_inicio"
+        android:hint="Data Início" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="date"
+        android:ems="10"
+        android:id="@+id/et_data_fim"
+        android:hint="Data Fim" />
+
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Reservar"
         android:id="@+id/bt_reservar"
         android:layout_gravity="right"
+        android:onClick="reservar"
         android:background="@color/colorPrimary"/>
 
 </LinearLayout>

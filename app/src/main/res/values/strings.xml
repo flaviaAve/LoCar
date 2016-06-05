@@ -9,5 +9,7 @@
     <string name="title_activity_cadastro_veiculo">Cadastro Veículo</string>
     <string name="drawer_open">Abrir</string>
     <string name="drawer_close">Fechar</string>
+    <string name="QUESTIONARIO_ID">1</string>
+    <string name="RESERVA_ID">2</string>
 
 </resources>

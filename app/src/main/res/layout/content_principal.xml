@@ -12,13 +12,23 @@
     tools:context="pucsp.locar.Principal"
     tools:showIn="@layout/activity_principal">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nenhum registro encontrado"
+        android:layout_centerInParent="true"
+        android:visibility="invisible"
+        android:id="@+id/tv_sem_registro"
+        android:textAppearance="?android:attr/textAppearanceLarge"/>
+
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/lvVeiculos"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:visibility="invisible"/>
 
 </RelativeLayout>
 
