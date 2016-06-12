@@ -70,7 +70,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Registrar"
+        android:text="Próximo"
         android:id="@+id/btRegistrar"
         android:onClick="registrar"
         android:layout_gravity="right"

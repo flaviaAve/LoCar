@@ -22,7 +22,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import pucsp.locar.conexoes.SalvarUsuarioRequisicao;
-import pucsp.locar.pucsp.locar.assincrono.EnviarImagem;
+import pucsp.locar.assincrono.EnviarImagem;
 
 public class Inicial extends AppCompatActivity {
 

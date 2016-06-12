@@ -4,12 +4,9 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -31,13 +28,12 @@ import java.util.ArrayList;
 
 import pucsp.locar.conexoes.ModelosRequisicao;
 import pucsp.locar.conexoes.MontadorasRequisicao;
-import pucsp.locar.conexoes.SalvarUsuarioRequisicao;
 import pucsp.locar.conexoes.SalvarVeiculoRequisicao;
 import pucsp.locar.objetos.Modelo;
 import pucsp.locar.objetos.ModeloAdapter;
 import pucsp.locar.objetos.Montadora;
 import pucsp.locar.objetos.MontadoraAdapter;
-import pucsp.locar.pucsp.locar.assincrono.EnviarImagem;
+import pucsp.locar.assincrono.EnviarImagem;
 
 public class CadastroVeiculo extends AppCompatActivity {
     private static final int RESULT_LOAD_IMAGE = 1;
@@ -49,6 +45,7 @@ public class CadastroVeiculo extends AppCompatActivity {
     private ArrayList<Modelo> modelos;
     private EditText e_preco;
     private EditText e_placa;
+    private EditText e_renavam;
     private String modelo;
 
     @Override
@@ -64,6 +61,7 @@ public class CadastroVeiculo extends AppCompatActivity {
         s_modelo = (Spinner) findViewById(R.id.s_modelo);
         e_preco = (EditText) findViewById(R.id.et_preco_minuto);
         e_placa = (EditText) findViewById(R.id.et_placa);
+        e_renavam = (EditText) findViewById(R.id.et_renavam);
 
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
@@ -196,6 +194,12 @@ public class CadastroVeiculo extends AppCompatActivity {
             e_placa.setError("Placa é obrigatória!");
         }
 
+        String renavam = e_renavam.getText().toString();
+        if (renavam.isEmpty()) {
+            erro = true;
+            e_renavam.setError("Renavam é obrigatório!");
+        }
+
         String caminhoImagem = "veiculos_imagens/" + iv_foto_veiculo.getTag().toString() + ".jpg";
         if (!erro) {
             Response.Listener<String> responseListener = new Response.Listener<String>() {
@@ -222,7 +226,7 @@ public class CadastroVeiculo extends AppCompatActivity {
                 }
             };
 
-            SalvarVeiculoRequisicao salvarVeiculo = new SalvarVeiculoRequisicao(RecursosSharedPreferences.getUserID(CadastroVeiculo.this), modelo, preco, placa, caminhoImagem, responseListener);
+            SalvarVeiculoRequisicao salvarVeiculo = new SalvarVeiculoRequisicao(RecursosSharedPreferences.getUserID(CadastroVeiculo.this), modelo, preco, placa, renavam, caminhoImagem, responseListener);
             RequestQueue queue = Volley.newRequestQueue(CadastroVeiculo.this);
             queue.add(salvarVeiculo);
         }

@@ -13,13 +13,14 @@ public class SalvarVeiculoRequisicao extends StringRequest {
     private static final String VEICULO_REQUEST_URL = "http://locar-servicos.pe.hu/salvar_veiculo.php";
     private Map<String, String> params;
 
-    public SalvarVeiculoRequisicao(String usuario, String modelo, String preco, String placa, String caminhoImagem, Response.Listener<String> listener) {
+    public SalvarVeiculoRequisicao(String usuario, String modelo, String preco, String placa, String renavam, String caminhoImagem, Response.Listener<String> listener) {
         super(Method.POST, VEICULO_REQUEST_URL, listener, null);
         params = new HashMap<>();
         params.put("usuarioID", usuario);
         params.put("modelo", modelo);
         params.put("preco", preco);
         params.put("placa", placa);
+        params.put("renavam", renavam);
         params.put("caminho_imagem", caminhoImagem);
     }
 

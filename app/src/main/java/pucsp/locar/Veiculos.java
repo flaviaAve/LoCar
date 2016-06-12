@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ListView;
-import pucsp.locar.pucsp.locar.assincrono.CarregarMeusVeiculos;
+import pucsp.locar.assincrono.CarregarMeusVeiculos;
 
 public class Veiculos extends AppCompatActivity {
     ListView lv_meus_veiculos;

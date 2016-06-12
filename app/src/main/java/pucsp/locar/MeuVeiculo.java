@@ -32,21 +32,16 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import pucsp.locar.conexoes.AlterarVeiculoRequisicao;
-import pucsp.locar.conexoes.BuscarUsuarioRequisicao;
 import pucsp.locar.conexoes.BuscarVeiculoRequisicao;
 import pucsp.locar.conexoes.ExcluirVeiculoRequisicao;
 import pucsp.locar.conexoes.ModelosRequisicao;
 import pucsp.locar.conexoes.MontadorasRequisicao;
-import pucsp.locar.conexoes.MudarStatusReservaRequisicao;
-import pucsp.locar.conexoes.SalvarVeiculoRequisicao;
 import pucsp.locar.objetos.Modelo;
 import pucsp.locar.objetos.ModeloAdapter;
 import pucsp.locar.objetos.Montadora;
 import pucsp.locar.objetos.MontadoraAdapter;
-import pucsp.locar.objetos.Usuario;
-import pucsp.locar.objetos.Veiculo;
 import pucsp.locar.objetos.VeiculoCadastro;
-import pucsp.locar.pucsp.locar.assincrono.EnviarImagem;
+import pucsp.locar.assincrono.EnviarImagem;
 
 public class MeuVeiculo extends AppCompatActivity {
     private static final int RESULT_LOAD_IMAGE = 1;
@@ -58,6 +53,7 @@ public class MeuVeiculo extends AppCompatActivity {
     private ArrayList<Modelo> modelos;
     private EditText e_preco;
     private EditText e_placa;
+    private EditText e_renavam;
     private String modelo;
     private ProgressBar pb_loading;
     private RelativeLayout layout_carregando;
@@ -84,6 +80,7 @@ public class MeuVeiculo extends AppCompatActivity {
         s_modelo = (Spinner) findViewById(R.id.s_modelo);
         e_preco = (EditText) findViewById(R.id.et_preco_minuto);
         e_placa = (EditText) findViewById(R.id.et_placa);
+        e_renavam = (EditText) findViewById(R.id.et_renavam);
         bt_alterar = (Button) findViewById(R.id.bt_alterar);
         bt_excluir = (Button) findViewById(R.id.bt_excluir);
         layout_carregando = (RelativeLayout) findViewById(R.id.layout_carregando);
@@ -248,6 +245,7 @@ public class MeuVeiculo extends AppCompatActivity {
     {
         e_preco.setText(veiculo.preco);
         e_placa.setText(veiculo.placa);
+        e_renavam.setText(veiculo.renavam);
 
         Picasso.with(MeuVeiculo.this).load(veiculo.imagem_veiculo)
                 .into(iv_foto_veiculo);
@@ -271,6 +269,7 @@ public class MeuVeiculo extends AppCompatActivity {
         s_montadora.setVisibility(View.VISIBLE);
         e_preco.setVisibility(View.VISIBLE);
         e_placa.setVisibility(View.VISIBLE);
+        e_renavam.setVisibility(View.VISIBLE);
         s_modelo.setVisibility(View.VISIBLE);
         bt_alterar.setVisibility(View.VISIBLE);
         bt_excluir.setVisibility(View.VISIBLE);
@@ -324,6 +323,12 @@ public class MeuVeiculo extends AppCompatActivity {
             e_placa.setError("Placa é obrigatória!");
         }
 
+        String renavam = e_renavam.getText().toString();
+        if (renavam.isEmpty()) {
+            erro = true;
+            e_renavam.setError("Renavam é obrigatório!");
+        }
+
         final String caminhoImagem = "veiculos_imagens/" + iv_foto_veiculo.getTag().toString() + ".jpg";
         if (!erro) {
             Response.Listener<String> responseListener = new Response.Listener<String>() {
@@ -353,7 +358,7 @@ public class MeuVeiculo extends AppCompatActivity {
                 }
             };
 
-            AlterarVeiculoRequisicao requisicao = new AlterarVeiculoRequisicao(veiculoID, modelo, preco, placa, caminhoImagem, responseListener);
+            AlterarVeiculoRequisicao requisicao = new AlterarVeiculoRequisicao(veiculoID, modelo, preco, placa, renavam, caminhoImagem, responseListener);
             RequestQueue queue = Volley.newRequestQueue(MeuVeiculo.this);
             queue.add(requisicao);
         }

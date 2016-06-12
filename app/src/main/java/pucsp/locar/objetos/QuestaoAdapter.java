@@ -4,11 +4,10 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
+import android.widget.BaseAdapter;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 
 import pucsp.locar.R;
@@ -16,37 +15,103 @@ import pucsp.locar.R;
 /**
  * Created by Flavia on 04/06/2016.
  */
-public class QuestaoAdapter extends ArrayAdapter<Questao>
+public class QuestaoAdapter extends BaseAdapter
 {
-    private static class ViewHolder {
-        TextView tv_questao;
-        RadioGroup rg_respostas;
+    LayoutInflater inflater;
+
+    ArrayList<Questao> list;
+
+    public QuestaoAdapter(Context context, ArrayList<Questao> data) {
+        inflater = LayoutInflater.from(context);
+        this.list = data;
     }
 
-    public QuestaoAdapter(Context context, ArrayList<Questao> questoes) {
-        super(context, R.layout.list_item_questao, questoes);
+    @Override
+    public int getCount() {
+        // TODO Auto-generated method stub
+        return list.size();
+    }
+
+    @Override
+    public Object getItem(int position) {
+        // TODO Auto-generated method stub
+        return list.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        // TODO Auto-generated method stub
+        return position;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Questao questao = getItem(position);
-
         ViewHolder viewHolder;
+        View v = convertView;
+
         if (convertView == null) {
-            viewHolder = new ViewHolder();
-            LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.list_item_questao, parent, false);
-            viewHolder.tv_questao = (TextView) convertView.findViewById(R.id.tv_questao);
-            viewHolder.rg_respostas = (RadioGroup) convertView.findViewById(R.id.rg_resultado);
-            convertView.setTag(viewHolder);
+            v = inflater.inflate(R.layout.list_item_questao, parent, false);
+            viewHolder = new ViewHolder(v);
+            v.setTag(viewHolder);
+
+            viewHolder.rg_respostas.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+                public void onCheckedChanged(RadioGroup group,
+                                             int checkedId) {
+                    Integer pos = (Integer) group.getTag();
+                    Questao element = list.get(pos);
+                    switch (checkedId) {
+                        case R.id.rb0:
+                            element.selecao = Questao.ANSWER_ZERO_SELECTED;
+                            break;
+                        case R.id.rb1:
+                            element.selecao = Questao.ANSWER_ONE_SELECTED;
+                            break;
+                        case R.id.rb2:
+                            element.selecao = Questao.ANSWER_TWO_SELECTED;
+                            break;
+                        case R.id.rb3:
+                            element.selecao = Questao.ANSWER_THREE_SELECTED;
+                            break;
+                        case R.id.rb4:
+                            element.selecao = Questao.ANSWER_FOUR_SELECTED;
+                            break;
+                        case R.id.rb5:
+                            element.selecao = Questao.ANSWER_FIVE_SELECTED;
+                            break;
+                        default:
+                            element.selecao = Questao.NONE;
+                    }
+
+                }
+            });
         } else {
-            viewHolder = (ViewHolder) convertView.getTag();
+            viewHolder = (ViewHolder) v.getTag();
+        }
+        viewHolder.rg_respostas.setTag(new Integer(position)); // I passed the current
+        // position as a tag
+
+        viewHolder.tv_questao.setText(list.get(position).textoQuestao); // Set the question body
+
+        if (list.get(position).selecao != Questao.NONE) {
+            RadioButton r = (RadioButton) viewHolder.rg_respostas.getChildAt(list.get(position).selecao);
+            r.setChecked(true);
+        } else {
+            viewHolder.rg_respostas.clearCheck();
+
         }
 
+        return v;
+    }
 
-        viewHolder.tv_questao.setText(questao.textoQuestao);
-        viewHolder.tv_questao.setTag(questao.id_questionario);
+    class ViewHolder {
+        TextView tv_questao = null;
+        RadioGroup rg_respostas;
 
-        return convertView;
+        ViewHolder(View v) {
+            tv_questao = (TextView) v.findViewById(R.id.tv_questao);
+            rg_respostas = (RadioGroup) v.findViewById(R.id.rg_resultado);
+        }
+
     }
 }
