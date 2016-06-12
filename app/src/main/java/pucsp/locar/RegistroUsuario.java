@@ -23,7 +23,7 @@ import org.json.JSONObject;
 import br.com.jansenfelipe.androidmask.MaskEditTextChangedListener;
 import pucsp.locar.conexoes.SalvarUsuarioRequisicao;
 import pucsp.locar.objetos.Criptografia;
-import pucsp.locar.pucsp.locar.assincrono.EnviarImagem;
+import pucsp.locar.assincrono.EnviarImagem;
 
 public class RegistroUsuario extends AppCompatActivity {
     private static final int RESULT_LOAD_IMAGE = 1;
@@ -134,7 +134,7 @@ public class RegistroUsuario extends AppCompatActivity {
                             String usuario_nome = jsonResponse.getString("nome");
 
                             RecursosSharedPreferences.setUserName(RegistroUsuario.this, usuario_nome, usuario_id, "local");
-                            Intent i = new Intent(RegistroUsuario.this, Principal.class);
+                            Intent i = new Intent(RegistroUsuario.this, CadastroEndereco.class);
                             startActivity(i);
                             Bitmap imagem = ((BitmapDrawable)iv_foto_usuario.getDrawable()).getBitmap();
                             new EnviarImagem(RegistroUsuario.this, "usuarios_imagens/", iv_foto_usuario.getTag().toString(), imagem).execute();

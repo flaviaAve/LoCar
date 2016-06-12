@@ -19,22 +19,15 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.squareup.picasso.Picasso;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
 
 import br.com.jansenfelipe.androidmask.MaskEditTextChangedListener;
 import pucsp.locar.conexoes.AlterarUsuarioRequisicao;
 import pucsp.locar.conexoes.BuscarUsuarioRequisicao;
-import pucsp.locar.conexoes.MontadorasRequisicao;
-import pucsp.locar.conexoes.SalvarUsuarioRequisicao;
 import pucsp.locar.objetos.Criptografia;
-import pucsp.locar.objetos.Montadora;
-import pucsp.locar.objetos.MontadoraAdapter;
 import pucsp.locar.objetos.Usuario;
-import pucsp.locar.pucsp.locar.assincrono.EnviarImagem;
+import pucsp.locar.assincrono.EnviarImagem;
 
 public class MeuCadastro extends AppCompatActivity {
     private static final int RESULT_LOAD_IMAGE = 1;
@@ -190,7 +183,7 @@ public class MeuCadastro extends AppCompatActivity {
                             String usuario_nome = jsonResponse.getString("nome");
 
                             RecursosSharedPreferences.setUserName(MeuCadastro.this, usuario_nome, usuario_id, "local");
-                            Intent i = new Intent(MeuCadastro.this, Principal.class);
+                            Intent i = new Intent(MeuCadastro.this, EditarEndereco.class);
                             startActivity(i);
                             if (!usuario.imagem_perfil.equals(caminhoImagem)) {
                                 Bitmap imagem = ((BitmapDrawable) iv_usuario.getDrawable()).getBitmap();

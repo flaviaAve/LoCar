@@ -81,7 +81,11 @@
         <activity android:name=".MeuVeiculo" />
         <activity android:name=".MinhasAvaliacoes" />
         <activity android:name=".AvaliacoesRealizadas" />
-        <activity android:name=".Questionario"></activity>
+        <activity android:name=".Questionario" />
+        <activity android:name=".CadastroEndereco" />
+        <activity android:name=".CadastroTelefone" />
+        <activity android:name=".EditarEndereco" />
+        <activity android:name=".EditarTelefone"></activity>
     </application>
 
 </manifest>

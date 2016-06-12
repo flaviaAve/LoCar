@@ -73,7 +73,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Salvar"
+        android:text="Próximo"
         android:id="@+id/bt_alterar_usuario"
         android:onClick="alterar"
         android:background="@color/colorPrimary"

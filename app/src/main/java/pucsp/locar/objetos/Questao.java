@@ -12,6 +12,14 @@ import java.util.ArrayList;
 public class Questao {
     public int id_questionario;
     public String textoQuestao;
+    int selecao = NONE; // hold the answer picked by the user, initial is NONE(see below)
+    public static final int NONE = 1000; // No answer selected
+    public static final int ANSWER_ZERO_SELECTED = 0; // first answer selected
+    public static final int ANSWER_ONE_SELECTED = 1; // first answer selected
+    public static final int ANSWER_TWO_SELECTED = 2; // second answer selected
+    public static final int ANSWER_THREE_SELECTED = 3; // third answer selected
+    public static final int ANSWER_FOUR_SELECTED = 4; // forth answer selected
+    public static final int ANSWER_FIVE_SELECTED = 5; // forth answer selected
 
     public Questao(JSONObject object){
         try {

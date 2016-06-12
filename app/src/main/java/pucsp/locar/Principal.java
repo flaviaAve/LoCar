@@ -16,7 +16,7 @@ import com.facebook.login.LoginManager;
 
 import java.lang.reflect.Method;
 
-import pucsp.locar.pucsp.locar.assincrono.CarregarVeiculos;
+import pucsp.locar.assincrono.CarregarVeiculos;
 
 public class Principal extends AppCompatActivity {
 

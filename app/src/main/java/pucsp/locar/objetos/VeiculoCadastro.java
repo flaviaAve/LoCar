@@ -15,6 +15,7 @@ public class VeiculoCadastro {
     public String montadoraID;
     public String preco;
     public String placa;
+    public String renavam;
     public String imagem_veiculo;
 
     public VeiculoCadastro(JSONObject object){
@@ -24,6 +25,7 @@ public class VeiculoCadastro {
             this.montadoraID = object.getString("montadora");
             this.preco = object.getString("preco");
             this.placa = object.getString("placa");
+            this.renavam = object.getString("renavam");
             this.imagem_veiculo = object.getString("imagem_veiculo");
         } catch (JSONException e) {
             e.printStackTrace();

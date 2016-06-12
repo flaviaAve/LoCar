@@ -1,4 +1,4 @@
-package pucsp.locar.pucsp.locar.assincrono;
+package pucsp.locar.assincrono;
 
 import android.app.ProgressDialog;
 import android.content.Context;
